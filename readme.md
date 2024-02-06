@@ -94,6 +94,7 @@ Setup and Execution Instructions
         npm start
 
 If you are using docker 
+
 1. In connect.ts
          const connection = await createConnection({
             type: 'postgres',
