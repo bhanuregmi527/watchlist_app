@@ -96,6 +96,7 @@ Setup and Execution Instructions
 If you are using docker 
 
 1. In connect.ts
+   
          const connection = await createConnection({
             type: 'postgres',
             host: 'postgres',//change from localhost to postgres
@@ -107,4 +108,5 @@ If you are using docker
             logging: false,
             synchronize: true,
         });
-2. docker-compose up --build
+   
+3. docker-compose up --build
