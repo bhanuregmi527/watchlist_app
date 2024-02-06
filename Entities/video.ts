@@ -18,6 +18,13 @@ export class Video extends BaseEntity {
     })
     url!: String;
 
+    @Column({
+        type: 'boolean',
+        default: false
+
+    })
+    isDeleted!: boolean
+
     @ManyToOne(() => Watchlist, (watchlist) => watchlist.videos)
     watchlist!: Watchlist;
 }

@@ -15,12 +15,20 @@ export const addVideo = async (req: Request, res: Response) => {
         // Check if the watchlist exists
         const watchlist = await Watchlist.findOneBy({ id });
         if (!watchlist) {
-            return res.status(404).json({ error: 'Watchlist not found' });
+            return res.status(404).json({
+                status: 'error',
+                code: 404,
+                message: 'Watchlist not found'
+            });
         }
 
         // Check if a video file is included in the request
         if (!req.file) {
-            return res.status(400).json({ error: 'No video file provided' });
+            return res.status(400).json({
+                status: 'error',
+                code: 400,
+                message: 'No video file provided'
+            });
         }
 
         // Process the uploaded video
@@ -33,8 +41,7 @@ export const addVideo = async (req: Request, res: Response) => {
             url: `/videos/${videoName}`,
             watchlist: watchlist,
         });
-        const path = `./public/videos/${videoName}`
-
+        const path = `./public/videos/${videoName}`;
 
         await pipeline(
             Readable.from(videoData),
@@ -42,11 +49,21 @@ export const addVideo = async (req: Request, res: Response) => {
         );
         await video.save();
 
-        return res.json({ message: 'Video Added' });
+        return res.json({
+            status: 'success',
+            code: 200,
+            message: 'Video added successfully'
+        });
     } catch (error) {
         console.error('Error uploading video:', error);
-        return res.status(500).json({ error: 'Internal Server Error' });
+        return res.status(500).json({
+            status: 'error',
+            code: 500,
+            message: 'Internal Server Error',
+            error: 'Internal Server Error'
+        });
     }
 };
+
 
 
